@@ -11,7 +11,13 @@ const app = new PIXI.Application({
 document.body.appendChild(app.view);
 
 // load the texture we need
-app.loader.add('bunny', '/bunny.png').load((loader, resources) => {
+app.loader.add('bunny', '/assets/bunny.png').load((loader, resources) => {
+    PIXI.sound.Sound.from(
+        {
+            url: 'assets/Blue.mp3',
+            autoPlay: true,
+        });
+    
     // This creates a texture from a 'bunny.png' image
     const bunny = new PIXI.Sprite(resources.bunny.texture);
 
