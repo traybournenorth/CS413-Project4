@@ -12,11 +12,10 @@ document.body.appendChild(app.view);
 
 // load the texture we need
 app.loader.add('bunny', '/assets/bunny.png').load((loader, resources) => {
-    PIXI.sound.Sound.from(
-        {
-            url: 'assets/Blue.mp3',
-            autoPlay: true,
-        });
+    // Uncomment to play sound
+    /*const sound = PIXI.sound.Sound.from('/assets/Blue.mp3');
+    sound.volume = 0.5;
+    sound.play();*/
     
     // This creates a texture from a 'bunny.png' image
     const bunny = new PIXI.Sprite(resources.bunny.texture);
@@ -35,6 +34,6 @@ app.loader.add('bunny', '/assets/bunny.png').load((loader, resources) => {
     // Listen for frame updates
     app.ticker.add(() => {
          // each frame we spin the bunny around a bit
-        bunny.rotation += 0.01;
+        //bunny.rotation += 0.01;
     });
 });
