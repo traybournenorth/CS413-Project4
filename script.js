@@ -46,12 +46,12 @@ let map = { width: 10, height: 10,
                        1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0] };
 
-function testCollision( worldX, worldY )
+/*function testCollision( worldX, worldY )
 {
     let mapX = Math.floor( worldX / tileSize / SCALE );
     let mapY = Math.floor( worldY / tileSize / SCALE );
     return map.collision[ mapY * map.width + mapX ];
-}
+}*/
 
 //The `keyboard` helper function
 function keyboard(keyCode) 
@@ -127,6 +127,11 @@ app.loader.load((loader, resources) => {
     avatar.scale.x = SCALE;
     avatar.scale.y = SCALE;
     
+    avatar.x = 0;
+    avatar.y = 320;
+    avatar.vx = 0;
+    avatar.vy = 0;
+    
     let background = new PIXI.Container();
     
     for ( y = 0; y < map.width; y++ )
@@ -151,20 +156,23 @@ app.loader.load((loader, resources) => {
     app.stage.addChild( avatar );
     
     // Sets position of avatar
-    let character = { x: 0, y: 0, vx: 0, vy: 0 };
-
+    //let character = { x: 0, y: 360, vx: 0, vy: 0 };
+    
     // Listen for frame updates
     app.ticker.add(() => {
         
-        avatar.x = character.x;
+        /*avatar.x = character.x;
         avatar.y = character.y;
         
         character.x = character.vx;
-        character.vy = character.vy + 1;
+        character.y = character.vy;*/
+        
+        avatar.x += avatar.vx;
+        avatar.y += avatar.vy;
 
         /*let touchingGround = testCollision( character.x, character.y, tileSize * SCALE * 2 + 1 );*/
         
-        if ( character.vy > 0 )
+        /*if ( character.vy > 0 )
         {
             for ( let index = 0; index < character.vy; index++ )
             {
@@ -180,7 +188,7 @@ app.loader.load((loader, resources) => {
                 
                 character.y = character.y + 1;
             }
-        }
+        }*/
         
         //Capture the keyboard arrow keys
         let left = keyboard(37),
@@ -191,60 +199,50 @@ app.loader.load((loader, resources) => {
         //Left arrow key `press` method
         left.press = () => 
         {
-            //Change the cat's velocity when the key is pressed
-            character.vx = -5;
-            character.vy = 0;
+            avatar.vx = -1;
+            avatar.vy = 0;
         };
   
         //Left arrow key `release` method
         left.release = () => 
         {
-            if (!right.isDown && character.vy === 0) 
-            {
-                character.vx = 0;
-            }
+            avatar.vx = 0;
         };
         
         //Up
         up.press = () => 
         {
-            character.vy = -5;
-            character.vx = 0;
+            avatar.vx = 0;
+            avatar.vy = -1;
         };
         
         up.release = () => 
         {
-            if (!down.isDown && character.vx === 0) 
-            {
-                character.vy = 0;
-            }
+            avatar.vy = 0;
         };
         
         //Right
         right.press = () => 
         {
-            character.vx += 1 / SCALE;
-            character.vy = 0;
+            avatar.vx = 1;
+            avatar.vy = 0; 
         };
         
-        character.release = () => 
+        right.release = () => 
         {
-            character.vx = 0;
+            avatar.vx = 0;
         };
         
         //Down
         down.press = () => 
         {
-            character.vy = 5;
-            character.vx = 0;
+            avatar.vx = 0;
+            avatar.vy = 1;
         };
         
         down.release = () => 
         {
-            if (!up.isDown && character.vx === 0) 
-            {
-                character.vy = 0;
-            }
-        };   
+            avatar.vy = 0;
+        } 
     });
 });
