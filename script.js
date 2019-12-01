@@ -41,8 +41,8 @@ let map = { width: 10, height: 10,
                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                       0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+                       0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
                        1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0] };
 
@@ -143,9 +143,9 @@ app.loader.load((loader, resources) => {
         avatar.y = character.y;
         
         character.vy = character.vy + 1;
-        character.x +=  character.vx;
-        
-        let touchingGround = testCollision( character.x, character.y, tileSize * SCALE * 2 + 1 );*/
+        character.x += character.vx;
+
+        /*let touchingGround = testCollision( character.x, character.y, tileSize * SCALE * 2 + 1 );*/
         
         if ( character.vy > 0 )
         {
@@ -167,55 +167,57 @@ app.loader.load((loader, resources) => {
         
         document.addEventListener('keydown', function(event) 
         {
-            //left
-            if(event.keyCode == 37) 
+            // left
+            if( event.keyCode == 37 && character.vx == 0 ) 
             {
-                character.vx -= 1;
+                character.vx -= 2;
             }
             
-            //top
-            else if(event.keyCode == 38) 
+            // top
+            else if(event.keyCode == 38 && character.vy == 0 ) 
             {
-                character.vy -= 1;
+                character.vy -= 2;
             }
             
-            //right
-            else if(event.keyCode == 39) 
+            // right
+            else if( event.keyCode == 39 && character.vx == 0 ) 
             {
-                character.vx += 1;
+                
+                character.vx += 2;
+                character.x += character.vx;
             }
             
-            //bottom
-            else if(event.keyCode == 40) 
+            // bottom
+            else if(event.keyCode == 40 && character.vy == 0 ) 
             {
-                character.vy += 1;
+                character.vy += 2;
             }
         });
         
         document.addEventListener('keyup', function(event) 
         {
-            //left
-            if(event.keyCode == 37) 
+            // left
+            if( event.keyCode == 37 ) 
             {
-                character.vx += 0;
+                character.vx = 0;
             }
             
-            //top
-            else if(event.keyCode == 38) 
+            // top
+            else if( event.keyCode == 38 ) 
             {
-                character.vy += 0;
+                character.vy = 0;
             }
             
-            //right
-            else if(event.keyCode == 39) 
+            // right
+            if( event.keyCode == 39 ) 
             {
-                character.vx += 0;
+                character.vx = 0;
             }
             
-            //bottom
+            // bottom
             else if(event.keyCode == 40) 
             {
-                character.vy += 0;
+                character.vy = 0;
             }
         });
         
