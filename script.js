@@ -8,6 +8,8 @@ const app = new PIXI.Application({
 // TileSize
 const tileSize = 16;
 
+const SCALE = 2.5;
+
 // Creates world map
 let map = { width: 10, height: 10, 
             tiles: [ 
@@ -30,6 +32,7 @@ let map = { width: 10, height: 10,
             ],
           
           // Checks to see which tiles you can walk on
+          // Since it scales had to make it 10 * 12
           collision: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -39,9 +42,39 @@ let map = { width: 10, height: 10,
                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] };
+                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                       1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0] };
+
+function testCollision( worldX, worldY )
+{
+    let mapX = Math.floor( worldX / tileSize / SCALE );
+    let mapY = Math.floor( worldY / tileSize / SCALE );
+    return map.collision[ mapY * map.width + mapX ];
+}
+
+/*class Keyboard
+{
+    constructor()
+    {
+        this.pressed = {};
+    }
+    
+    watch( el )
+    {
+        el.addEventListener( 'keydown', (e) => {
+            document.innerHTML = "UP PRESSED!";
+            this.pressed[e.key] = true;
+        } );
+        
+        el.addEventListener( 'keyup', (e) => {
+            this.pressed[e.key] = false;
+        } );
+    }
+}*/
 
 document.body.appendChild(app.view);
+//app.view.setAttribute( 'tabindex', 0 );
 
 // load the texture we need
 app.loader.add('tileset', '/assets/bunny.png');
@@ -52,6 +85,9 @@ app.loader.load((loader, resources) => {
     /*const sound = PIXI.sound.Sound.from('/assets/Blue.mp3');
     sound.volume = 0.5;
     sound.play();*/
+    
+    /*let kb = new Keyboard();
+    kb.watch( app.view );*/
     
     let tileTextures = [];
     let characterFrames = [];
@@ -72,11 +108,8 @@ app.loader.load((loader, resources) => {
     
     // Switch tileTextures to characterFrames once we create avatar spritesheet
     const avatar = new PIXI.Sprite( tileTextures[61]);
-    avatar.scale.x = 1.5;
-    avatar.scale.y = 1.5;
-    
-    avatar.x = app.renderer.width / 2;
-    avatar.y = app.renderer.height / 2;
+    avatar.scale.x = SCALE;
+    avatar.scale.y = SCALE;
     
     let background = new PIXI.Container();
     
@@ -92,8 +125,8 @@ app.loader.load((loader, resources) => {
         }
     }
     
-    background.scale.x = 2.5;
-    background.scale.y = 2.5;
+    background.scale.x = SCALE;
+    background.scale.y = SCALE;
 
     // Add background to the scene we are building
     app.stage.addChild( background );
@@ -109,8 +142,82 @@ app.loader.load((loader, resources) => {
         avatar.x = character.x;
         avatar.y = character.y;
         
-        character.vy += character.vy + 1;
+        character.vy = character.vy + 1;
         character.x +=  character.vx;
-        character.y += character.vy;
+        
+        let touchingGround = testCollision( character.x, character.y, tileSize * SCALE * 2 + 1 );*/
+        
+        if ( character.vy > 0 )
+        {
+            for ( let index = 0; index < character.vy; index++ )
+            {
+                let testX1 = character.x;
+                let testX2 = character.x + tileSize * SCALE - 1;
+                let testY = character.y + tileSize * SCALE * 2;
+                
+                if ( testCollision( testX1, testY ) || testCollision( testX2, testY ) )
+                {
+                    character.vy = 0;
+                    break;
+                }
+                
+                character.y = character.y + 1;
+            }
+        }
+        
+        document.addEventListener('keydown', function(event) 
+        {
+            //left
+            if(event.keyCode == 37) 
+            {
+                character.vx -= 1;
+            }
+            
+            //top
+            else if(event.keyCode == 38) 
+            {
+                character.vy -= 1;
+            }
+            
+            //right
+            else if(event.keyCode == 39) 
+            {
+                character.vx += 1;
+            }
+            
+            //bottom
+            else if(event.keyCode == 40) 
+            {
+                character.vy += 1;
+            }
+        });
+        
+        document.addEventListener('keyup', function(event) 
+        {
+            //left
+            if(event.keyCode == 37) 
+            {
+                character.vx += 0;
+            }
+            
+            //top
+            else if(event.keyCode == 38) 
+            {
+                character.vy += 0;
+            }
+            
+            //right
+            else if(event.keyCode == 39) 
+            {
+                character.vx += 0;
+            }
+            
+            //bottom
+            else if(event.keyCode == 40) 
+            {
+                character.vy += 0;
+            }
+        });
+        
     });
 });
