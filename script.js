@@ -29,29 +29,7 @@ let map = { width: 10, height: 10,
                 
             // Bottom Floor
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-            ],
-          
-          // Checks to see which tiles you can walk on
-          // Since it scales had to make it 10 * 12
-          collision: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                       0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
-                       0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
-                       1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0] };
-
-/*function testCollision( worldX, worldY )
-{
-    let mapX = Math.floor( worldX / tileSize / SCALE );
-    let mapY = Math.floor( worldY / tileSize / SCALE );
-    return map.collision[ mapY * map.width + mapX ];
-}*/
+            ]};
 
 //The `keyboard` helper function
 function keyboard(keyCode) 
@@ -129,8 +107,8 @@ app.loader.load((loader, resources) => {
     
     avatar.position.x = 0;
     avatar.position.y = 320;
-    avatar.vx = 0;
-    avatar.vy = 0;
+    avatar.position.vx = 0;
+    avatar.position.vy = 0;
     
     let background = new PIXI.Container();
     
@@ -161,34 +139,8 @@ app.loader.load((loader, resources) => {
     // Listen for frame updates
     app.ticker.add(() => {
         
-        /*avatar.x = character.x;
-        avatar.y = character.y;
-        
-        character.x = character.vx;
-        character.y = character.vy;*/
-        
-        avatar.position.x += avatar.vx;
-        avatar.position.y += avatar.vy;
-
-        /*let touchingGround = testCollision( character.x, character.y, tileSize * SCALE * 2 + 1 );*/
-        
-        /*if ( character.vy > 0 )
-        {
-            for ( let index = 0; index < character.vy; index++ )
-            {
-                let testX1 = character.x;
-                let testX2 = character.x + tileSize * SCALE - 1;
-                let testY = character.y + tileSize * SCALE * 2;
-                
-                if ( testCollision( testX1, testY ) || testCollision( testX2, testY ) )
-                {
-                    character.vy = 0;
-                    break;
-                }
-                
-                character.y = character.y + 1;
-            }
-        }*/
+        avatar.position.x += avatar.position.vx;
+        avatar.position.y += avatar.position.vy;
         
         //Capture the keyboard arrow keys
         let left = keyboard(37),
@@ -199,26 +151,37 @@ app.loader.load((loader, resources) => {
         //Left arrow key `press` method
         left.press = () => 
         {
-            avatar.vx = -2;
-            avatar.vy = 0;
+            if ( avatar.position.x > 10 )
+            {
+                avatar.position.vx = -2;
+                avatar.position.vy = 0;
+            }
+            
+            else
+            {
+                avatar.position.vx = 0;
+                avatar.position.vy = 0;
+            }
         };
   
         //Left arrow key `release` method
         left.release = () => 
         {
-            avatar.vx = 0;
+            avatar.position.vx = 0;
+            avatar.position.vy = 0;
         };
         
         //Up
         up.press = () => 
         {
-            avatar.vx = 0;
-            avatar.vy = -2;
+            avatar.position.vx = 0;
+            avatar.position.vy = -2;
         };
         
         up.release = () => 
         {
-            avatar.vy = 0;
+            avatar.position.vy = 2.0;
+            avatar.position.vy = 0;
         };
         
         //Right
@@ -226,32 +189,43 @@ app.loader.load((loader, resources) => {
         {
             if ( avatar.position.x < 360 )
             {
-              avatar.vx = 2;
-              avatar.vy = 0;   
+              avatar.position.vx = 2;
+              avatar.position.vy = 0;   
             } 
             
             else
             {
-                avatar.vx = 0;
-                avatar.vy = 0;
+                avatar.position.vx = 0;
+                avatar.position.vy = 0;
             }
         };
         
         right.release = () => 
         {
-            avatar.vx = 0;
+            avatar.position.vx = 0;
+            avatar.position.vy = 0;
         };
         
         //Down
         down.press = () => 
         {
-            avatar.vx = 0;
-            avatar.vy = 2;
+            if ( avatar.position.y < 320 )
+            {
+                avatar.position.vx = 0;
+                avatar.position.vy = 2;
+            }
+            
+            else
+            {
+                avatar.position.vx = 0;
+                avatar.position.vy = 0;
+            }
         };
         
         down.release = () => 
         {
-            avatar.vy = 0;
-        } 
+            avatar.position.vx = 0;
+            avatar.position.vy = 0;
+        };
     });
 });
