@@ -127,8 +127,8 @@ app.loader.load((loader, resources) => {
     avatar.scale.x = SCALE;
     avatar.scale.y = SCALE;
     
-    avatar.x = 0;
-    avatar.y = 320;
+    avatar.position.x = 0;
+    avatar.position.y = 320;
     avatar.vx = 0;
     avatar.vy = 0;
     
@@ -167,8 +167,8 @@ app.loader.load((loader, resources) => {
         character.x = character.vx;
         character.y = character.vy;*/
         
-        avatar.x += avatar.vx;
-        avatar.y += avatar.vy;
+        avatar.position.x += avatar.vx;
+        avatar.position.y += avatar.vy;
 
         /*let touchingGround = testCollision( character.x, character.y, tileSize * SCALE * 2 + 1 );*/
         
@@ -224,8 +224,17 @@ app.loader.load((loader, resources) => {
         //Right
         right.press = () => 
         {
-            avatar.vx = 1;
-            avatar.vy = 0; 
+            if ( avatar.position.x < 100 )
+            {
+              avatar.vx = 1;
+              avatar.vy = 0;   
+            } 
+            
+            else
+            {
+                avatar.vx = 0;
+                avatar.vy = 0;
+            }
         };
         
         right.release = () => 
