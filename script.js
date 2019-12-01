@@ -74,8 +74,8 @@ function keyboard(keyCode)
 document.body.appendChild(app.view);
 
 // load the texture we need
-app.loader.add('tileset', '/assets/bunny.png');
-app.loader.add('character', '/assets/bunny.png');
+app.loader.add('tileset', '/assets/tileset.png');
+app.loader.add('character', '/assets/tileset.png');
 app.loader.load((loader, resources) => {
     
     // Uncomment to play sound
