@@ -199,7 +199,7 @@ app.loader.load((loader, resources) => {
         //Left arrow key `press` method
         left.press = () => 
         {
-            avatar.vx = -1;
+            avatar.vx = -2;
             avatar.vy = 0;
         };
   
@@ -213,7 +213,7 @@ app.loader.load((loader, resources) => {
         up.press = () => 
         {
             avatar.vx = 0;
-            avatar.vy = -1;
+            avatar.vy = -2;
         };
         
         up.release = () => 
@@ -224,9 +224,9 @@ app.loader.load((loader, resources) => {
         //Right
         right.press = () => 
         {
-            if ( avatar.position.x < 100 )
+            if ( avatar.position.x < 360 )
             {
-              avatar.vx = 1;
+              avatar.vx = 2;
               avatar.vy = 0;   
             } 
             
@@ -246,7 +246,7 @@ app.loader.load((loader, resources) => {
         down.press = () => 
         {
             avatar.vx = 0;
-            avatar.vy = 1;
+            avatar.vy = 2;
         };
         
         down.release = () => 
