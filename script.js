@@ -53,28 +53,47 @@ function testCollision( worldX, worldY )
     return map.collision[ mapY * map.width + mapX ];
 }
 
-/*class Keyboard
+//The `keyboard` helper function
+function keyboard(keyCode) 
 {
-    constructor()
-    {
-        this.pressed = {};
-    }
+    var key = {};
+    key.code = keyCode;
+    key.isDown = false;
+    key.isUp = true;
+    key.press = undefined;
+    key.release = undefined;
     
-    watch( el )
+    //The `downHandler`
+    key.downHandler = event => 
     {
-        el.addEventListener( 'keydown', (e) => {
-            document.innerHTML = "UP PRESSED!";
-            this.pressed[e.key] = true;
-        } );
-        
-        el.addEventListener( 'keyup', (e) => {
-            this.pressed[e.key] = false;
-        } );
+        if (event.keyCode === key.code) {
+        if (key.isUp && key.press) key.press();
+        key.isDown = true;
+        key.isUp = false;
     }
-}*/
+        
+    event.preventDefault();
+  };
+    
+    //The `upHandler`
+    key.upHandler = event => 
+    {
+        if (event.keyCode === key.code) {
+        if (key.isDown && key.release) key.release();
+        key.isDown = false;
+        key.isUp = true;
+    }
+        
+    event.preventDefault();
+  };
+    
+  //Attach event listeners
+  window.addEventListener( "keydown", key.downHandler.bind(key), false );
+  window.addEventListener( "keyup", key.upHandler.bind(key), false );
+  return key;
+}
 
 document.body.appendChild(app.view);
-//app.view.setAttribute( 'tabindex', 0 );
 
 // load the texture we need
 app.loader.add('tileset', '/assets/bunny.png');
@@ -85,9 +104,6 @@ app.loader.load((loader, resources) => {
     /*const sound = PIXI.sound.Sound.from('/assets/Blue.mp3');
     sound.volume = 0.5;
     sound.play();*/
-    
-    /*let kb = new Keyboard();
-    kb.watch( app.view );*/
     
     let tileTextures = [];
     let characterFrames = [];
@@ -139,11 +155,12 @@ app.loader.load((loader, resources) => {
 
     // Listen for frame updates
     app.ticker.add(() => {
+        
         avatar.x = character.x;
         avatar.y = character.y;
         
+        character.x = character.vx;
         character.vy = character.vy + 1;
-        character.x += character.vx;
 
         /*let touchingGround = testCollision( character.x, character.y, tileSize * SCALE * 2 + 1 );*/
         
@@ -165,61 +182,69 @@ app.loader.load((loader, resources) => {
             }
         }
         
-        document.addEventListener('keydown', function(event) 
-        {
-            // left
-            if( event.keyCode == 37 && character.vx == 0 ) 
-            {
-                character.vx -= 2;
-            }
-            
-            // top
-            else if(event.keyCode == 38 && character.vy == 0 ) 
-            {
-                character.vy -= 2;
-            }
-            
-            // right
-            else if( event.keyCode == 39 && character.vx == 0 ) 
-            {
-                
-                character.vx += 2;
-                character.x += character.vx;
-            }
-            
-            // bottom
-            else if(event.keyCode == 40 && character.vy == 0 ) 
-            {
-                character.vy += 2;
-            }
-        });
+        //Capture the keyboard arrow keys
+        let left = keyboard(37),
+            up = keyboard(38),
+            right = keyboard(39),
+            down = keyboard(40);
         
-        document.addEventListener('keyup', function(event) 
+        //Left arrow key `press` method
+        left.press = () => 
         {
-            // left
-            if( event.keyCode == 37 ) 
+            //Change the cat's velocity when the key is pressed
+            character.vx = -5;
+            character.vy = 0;
+        };
+  
+        //Left arrow key `release` method
+        left.release = () => 
+        {
+            if (!right.isDown && character.vy === 0) 
             {
                 character.vx = 0;
             }
-            
-            // top
-            else if( event.keyCode == 38 ) 
-            {
-                character.vy = 0;
-            }
-            
-            // right
-            if( event.keyCode == 39 ) 
-            {
-                character.vx = 0;
-            }
-            
-            // bottom
-            else if(event.keyCode == 40) 
-            {
-                character.vy = 0;
-            }
-        });
+        };
         
+        //Up
+        up.press = () => 
+        {
+            character.vy = -5;
+            character.vx = 0;
+        };
+        
+        up.release = () => 
+        {
+            if (!down.isDown && character.vx === 0) 
+            {
+                character.vy = 0;
+            }
+        };
+        
+        //Right
+        right.press = () => 
+        {
+            character.vx += 1 / SCALE;
+            character.vy = 0;
+        };
+        
+        character.release = () => 
+        {
+            character.vx = 0;
+        };
+        
+        //Down
+        down.press = () => 
+        {
+            character.vy = 5;
+            character.vx = 0;
+        };
+        
+        down.release = () => 
+        {
+            if (!up.isDown && character.vx === 0) 
+            {
+                character.vy = 0;
+            }
+        };   
     });
 });
