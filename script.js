@@ -27,12 +27,26 @@ let map = { width: 10, height: 10,
                 
             // Bottom Floor
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-            ]};
+            ],
+          
+          // Checks to see which tiles you can walk on
+          collision: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] };
 
 document.body.appendChild(app.view);
 
 // load the texture we need
-app.loader.add('tileset', '/assets/bunny.png').load((loader, resources) => {
+app.loader.add('tileset', '/assets/bunny.png');
+app.loader.add('character', '/assets/bunny.png');
+app.loader.load((loader, resources) => {
     
     // Uncomment to play sound
     /*const sound = PIXI.sound.Sound.from('/assets/Blue.mp3');
@@ -40,6 +54,7 @@ app.loader.add('tileset', '/assets/bunny.png').load((loader, resources) => {
     sound.play();*/
     
     let tileTextures = [];
+    let characterFrames = [];
     
     // Loop that slices size of image ( 7 by 11 ) into individual cubes
     for ( let index = 0; index < 7 * 11; index++ )
@@ -49,16 +64,19 @@ app.loader.add('tileset', '/assets/bunny.png').load((loader, resources) => {
         tileTextures[index] = new PIXI.Texture( resources.tileset.texture, new PIXI.Rectangle( x * tileSize, y * tileSize, tileSize, tileSize));
     }
     
-    // From top left to bottom right
-    const bunny = new PIXI.Sprite(tileTextures[49]);
-
-    // Setup the position of the bunny
-    bunny.x = app.renderer.width / 2;
-    bunny.y = app.renderer.height / 2;
-
-    // Rotate around the center
-    bunny.anchor.x = 0.5;
-    bunny.anchor.y = 0.5;
+    // Loop that slices size of character into individual cubes
+    for ( let index = 0; index < 1; index++ )
+    {
+        characterFrames[index] = new PIXI.Texture( resources.character.texture, new PIXI.Rectangle( index * tileSize, 0, tileSize, tileSize * 2 ) );
+    }
+    
+    // Switch tileTextures to characterFrames once we create avatar spritesheet
+    const avatar = new PIXI.Sprite( tileTextures[61]);
+    avatar.scale.x = 1.5;
+    avatar.scale.y = 1.5;
+    
+    avatar.x = app.renderer.width / 2;
+    avatar.y = app.renderer.height / 2;
     
     let background = new PIXI.Container();
     
@@ -77,10 +95,22 @@ app.loader.add('tileset', '/assets/bunny.png').load((loader, resources) => {
     background.scale.x = 2.5;
     background.scale.y = 2.5;
 
-    // Add the bunny to the scene we are building
-    app.stage.addChild(background);
+    // Add background to the scene we are building
+    app.stage.addChild( background );
+    
+    // Add avatar
+    app.stage.addChild( avatar );
+    
+    // Sets position of avatar
+    let character = { x: 0, y: 0, vx: 0, vy: 0 };
 
     // Listen for frame updates
     app.ticker.add(() => {
+        avatar.x = character.x;
+        avatar.y = character.y;
+        
+        character.vy += character.vy + 1;
+        character.x +=  character.vx;
+        character.y += character.vy;
     });
 });
