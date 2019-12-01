@@ -6,19 +6,30 @@ const app = new PIXI.Application({
     height: 400
 });
 
+const tileSize = 16;
+
 // The application will create a canvas element for you that you
 // can then insert into the DOM
 document.body.appendChild(app.view);
 
 // load the texture we need
-app.loader.add('bunny', '/assets/bunny.png').load((loader, resources) => {
+app.loader.add('tileset', '/assets/bunny.png').load((loader, resources) => {
     // Uncomment to play sound
     /*const sound = PIXI.sound.Sound.from('/assets/Blue.mp3');
     sound.volume = 0.5;
     sound.play();*/
     
-    // This creates a texture from a 'bunny.png' image
-    const bunny = new PIXI.Sprite(resources.bunny.texture);
+    let tileTextures = [];
+    
+    // Loop that slices size of image ( 7 by 11 ) into individual cubes
+    for ( let index = 0; index < 7 * 11; index++ )
+    {
+        let x = index % 7;
+        let y = Math.floor( index / 7 );
+        tileTextures[index] = new PIXI.Texture( resources.tileset.texture, new PIXI.Rectangle( x * tileSize, y * tileSize, tileSize, tileSize));
+    }
+    
+    const bunny = new PIXI.Sprite(tileTextures[53]);
 
     // Setup the position of the bunny
     bunny.x = app.renderer.width / 2;
