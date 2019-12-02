@@ -78,14 +78,15 @@ app.loader.add('tileset', '/assets/tileset.png');
 app.loader.add('character', '/assets/tileset.png');
 app.loader.load((loader, resources) => {
     
+    PIXI.sound.Sound.from(
+    {
+        url: '/assets/menu.mp3',
+        autoPlay: true,
+        volume: 0.5
+    });
+    
     let tileTextures = [];
     let characterFrames = [];
-    
-    const sound = PIXI.sound.Sound.from( '/assets/menu.mp3');
-    sound.volume = 0.5;
-    sound.autoPlay = true;
-    sound.loop = true;
-    sound.play();
     
     // Loop that slices size of image ( 7 by 11 ) into individual cubes
     for ( let index = 0; index < 7 * 11; index++ )
