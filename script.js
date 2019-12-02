@@ -86,7 +86,7 @@ app.loader.load((loader, resources) => {
     });*/
     
     let tileTextures = [];
-    let characterFrames = [];
+    //let characterFrames = [];
     
     ////// Menu 
     
@@ -113,10 +113,10 @@ app.loader.load((loader, resources) => {
     }
     
     // Loop that slices size of character into individual cubes
-    for ( let index = 0; index < 1; index++ )
+    /*for ( let index = 0; index < 1; index++ )
     {
         characterFrames[index] = new PIXI.Texture( resources.character.texture, new PIXI.Rectangle( index * tileSize, 0, tileSize, tileSize * 2 ) );
-    }
+    }*/
     
     // Switch tileTextures to characterFrames once we create avatar spritesheet
     const avatar = new PIXI.Sprite( tileTextures[61]);
