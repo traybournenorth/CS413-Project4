@@ -78,16 +78,31 @@ app.loader.add('tileset', '/assets/tileset.png');
 app.loader.add('character', '/assets/tileset.png');
 app.loader.load((loader, resources) => {
     
-    PIXI.sound.Sound.from(
+    /*PIXI.sound.Sound.from(
     {
-        url: '/assets/menu.mp3',
+        url: 'assets/menu.mp3',
         autoPlay: true,
-        loop: true,
         volume: 0.5
-    });
+    });*/
     
     let tileTextures = [];
     let characterFrames = [];
+    
+    ////// Menu 
+    
+    let startGame = new PIXI.Text('Start Game',{fontFamily : 'Arial', fontSize: 24, fill : 0xFFFFFF });
+    startGame.position.x = 140;
+    startGame.position.y = 140;
+    
+    var moveFlag = false;
+    
+    startGame.interactive = true;
+    startGame.buttonMode = true;
+    startGame.on("mousedown", (event) => 
+    {
+        moveFlag = true;  
+        app.stage.removeChild( startGame );
+    })
     
     // Loop that slices size of image ( 7 by 11 ) into individual cubes
     for ( let index = 0; index < 7 * 11; index++ )
@@ -136,6 +151,9 @@ app.loader.load((loader, resources) => {
     // Add avatar
     app.stage.addChild( avatar );
     
+    // Add menu stage
+    app.stage.addChild( startGame );
+    
     // Sets position of avatar
     //let character = { x: 0, y: 360, vx: 0, vy: 0 };
     
@@ -154,7 +172,7 @@ app.loader.load((loader, resources) => {
         //Left arrow key `press` method
         left.press = () => 
         {
-            if ( avatar.position.x > 10 )
+            if ( avatar.position.x > 10 && moveFlag )
             {
                 avatar.position.vx = -2;
                 avatar.position.vy = 0;
@@ -177,8 +195,17 @@ app.loader.load((loader, resources) => {
         //Up
         up.press = () => 
         {
-            avatar.position.vx = 0;
-            avatar.position.vy = -2;
+            if ( avatar.position.y > 10 && moveFlag )
+            {
+                avatar.position.vx = 0;
+                avatar.position.vy = -2;
+            }
+            
+            else
+            {
+                avatar.position.vx = 0;
+                avatar.position.vy = 0;
+            }
         };
         
         up.release = () => 
@@ -190,7 +217,7 @@ app.loader.load((loader, resources) => {
         //Right
         right.press = () => 
         {
-            if ( avatar.position.x < 360 )
+            if ( avatar.position.x < 360 && moveFlag )
             {
                 avatar.position.vx = 2;
                 avatar.position.vy = 0; 
@@ -213,7 +240,7 @@ app.loader.load((loader, resources) => {
         //Down
         down.press = () => 
         {
-            if ( avatar.position.y < 320 )
+            if ( avatar.position.y < 320 && moveFlag )
             {
                 avatar.position.vx = 0;
                 avatar.position.vy = 2;
