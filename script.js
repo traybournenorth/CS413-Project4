@@ -78,13 +78,14 @@ app.loader.add('tileset', '/assets/tileset.png');
 app.loader.add('character', '/assets/tileset.png');
 app.loader.load((loader, resources) => {
     
-    // Uncomment to play sound
-    /*const sound = PIXI.sound.Sound.from('/assets/Blue.mp3');
-    sound.volume = 0.5;
-    sound.play();*/
-    
     let tileTextures = [];
     let characterFrames = [];
+    
+    const sound = PIXI.sound.Sound.from( '/assets/menu.mp3');
+    sound.volume = 0.5;
+    sound.autoPlay = true;
+    sound.loop = true;
+    sound.play();
     
     // Loop that slices size of image ( 7 by 11 ) into individual cubes
     for ( let index = 0; index < 7 * 11; index++ )
@@ -189,8 +190,8 @@ app.loader.load((loader, resources) => {
         {
             if ( avatar.position.x < 360 )
             {
-              avatar.position.vx = 2;
-              avatar.position.vy = 0;   
+                avatar.position.vx = 2;
+                avatar.position.vy = 0; 
             } 
             
             else
@@ -202,6 +203,7 @@ app.loader.load((loader, resources) => {
         
         right.release = () => 
         {
+            
             avatar.position.vx = 0;
             avatar.position.vy = 0;
         };
