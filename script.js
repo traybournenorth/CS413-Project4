@@ -82,6 +82,7 @@ app.loader.load((loader, resources) => {
     {
         url: '/assets/menu.mp3',
         autoPlay: true,
+        loop: true,
         volume: 0.5
     });
     
