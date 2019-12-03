@@ -197,6 +197,14 @@ app.loader.load((loader, resources) => {
         app.stage.addChild( backText );
     });
     
+    let theEnd = new PIXI.Text('You have won!!!',{fontFamily : 'Arial', fontSize: 24, fill : 0xFFFFFF });
+    
+    theEnd.position.x = 170;
+    theEnd.position.y = 140;
+                    
+    app.stage.addChild( theEnd );
+    theEnd.visible = false;
+    
     // Loop that slices size of image ( 7 by 11 ) into individual cubes
     for ( let index = 0; index < 7 * 11; index++ )
     {
@@ -327,6 +335,8 @@ app.loader.load((loader, resources) => {
                     doorXBoundTwo = false;
                     doorYBoundTwo = false;
                     avatar.visible = false;
+                    
+                    theEnd.visible = true;
                 }
                 
                 else
@@ -372,6 +382,8 @@ app.loader.load((loader, resources) => {
                     doorXBoundTwo = false;
                     doorYBoundTwo = false;
                     avatar.visible = false;
+                    
+                    theEnd.visible = true;
                 }
                 
                 else
@@ -416,6 +428,8 @@ app.loader.load((loader, resources) => {
                     doorXBoundTwo = false;
                     doorYBoundTwo = false;
                     avatar.visible = false;
+                    
+                    theEnd.visible = true;
                 }
                 
                 else
@@ -461,6 +475,8 @@ app.loader.load((loader, resources) => {
                     doorXBoundTwo = false;
                     doorYBoundTwo = false;
                     avatar.visible = false;
+                    
+                    theEnd.visible = true;
                 }
                 
                 else
