@@ -201,6 +201,14 @@ app.loader.load((loader, resources) => {
         app.stage.addChild( backText );
     });
     
+    let theEnd = new PIXI.Text('You have won!!!',{fontFamily : 'Arial', fontSize: 24, fill : 0xFFFFFF });
+    
+    theEnd.position.x = 170;
+    theEnd.position.y = 140;
+                    
+    app.stage.addChild( theEnd );
+    theEnd.visible = false;
+    
     // Loop that slices size of image ( 7 by 11 ) into individual cubes
     for ( let index = 0; index < 7 * 11; index++ )
     {
@@ -307,7 +315,7 @@ app.loader.load((loader, resources) => {
         var doorXBoundTwo = avatar.position.x > 37 && avatar.position.x < 47;
         
         // Left number has to be bigger than right 
-        //var doorYBoundTwo = avatar.position.y < 360  && avatar.position.y > 340;
+        var doorYBoundTwo = avatar.position.y < 350  && avatar.position.y > 320;
         
         //Left arrow key `press` method
         left.press = () => 
@@ -324,14 +332,15 @@ app.loader.load((loader, resources) => {
                     map2();
                 }
                 
-                else if ( doorXBoundTwo /*&& doorYBoundTwo*/ && !levelOne )
+                else if ( doorXBoundTwo && doorYBoundTwo && !levelOne )
                 {
                     avatar.position.x = 0;
                     avatar.position.y = 45;
                     doorXBoundTwo = false;
-                    //doorYBoundTwo = false;
-                    //avatar.visible = false;
-                    //backgroundTwo.visible = false;
+                    doorYBoundTwo = false;
+                    avatar.visible = false;
+                    
+                    theEnd.visible = true;
                 }
                 
                 else
@@ -370,14 +379,15 @@ app.loader.load((loader, resources) => {
                     map2();
                 }
                 
-                else if ( doorXBoundTwo /*&& doorYBoundTwo*/ && !levelOne )
+                else if ( doorXBoundTwo && doorYBoundTwo && !levelOne )
                 {
                     avatar.position.x = 0;
                     avatar.position.y = 45;
                     doorXBoundTwo = false;
-                    //doorYBoundTwo = false;
-                    //avatar.visible = false;
-                    //backgroundTwo.visible = false;
+                    doorYBoundTwo = false;
+                    avatar.visible = false;
+                    
+                    theEnd.visible = true;
                 }
                 
                 else
@@ -415,14 +425,15 @@ app.loader.load((loader, resources) => {
                     map2();
                 }
                 
-                else if ( doorXBoundTwo /*&& doorYBoundTwo*/ && !levelOne )
+                else if ( doorXBoundTwo && doorYBoundTwo && !levelOne )
                 {
                     avatar.position.x = 0;
                     avatar.position.y = 45;
                     doorXBoundTwo = false;
-                    //doorYBoundTwo = false;
-                    //avatar.visible = false;
-                    //backgroundTwo.visible = false;
+                    doorYBoundTwo = false;
+                    avatar.visible = false;
+                    
+                    theEnd.visible = true;
                 }
                 
                 else
@@ -461,14 +472,15 @@ app.loader.load((loader, resources) => {
                     map2();
                 }
                 
-                else if ( doorXBoundTwo /*&& doorYBoundTwo*/ && !levelOne )
+                else if ( doorXBoundTwo && doorYBoundTwo && !levelOne )
                 {
                     avatar.position.x = 0;
                     avatar.position.y = 45;
                     doorXBoundTwo = false;
-                    //doorYBoundTwo = false;
-                    //avatar.visible = false;
-                    //backgroundTwo.visible = false;
+                    doorYBoundTwo = false;
+                    avatar.visible = false;
+                    
+                    theEnd.visible = true;
                 }
                 
                 else
