@@ -243,7 +243,9 @@ app.loader.load((loader, resources) => {
             right = keyboard(39),
             down = keyboard(40);
         
-        var doorXBound = avatar.position.x > 280 && avatar.position.x < 290;
+        // Left number has to smaller than right
+        var doorXBound = avatar.position.x > 310 && avatar.position.x < 320;
+        
         //var doorYBound = avatar.position.y < 50 && avatar.position.y > 40;
         
         //Left arrow key `press` method
