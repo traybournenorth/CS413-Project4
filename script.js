@@ -103,7 +103,7 @@ app.loader.load((loader, resources) => {
     {
         url: 'assets/menu.mp3',
         autoPlay: true,
-        volume: 0.5
+        volume: 0.4
     });*/
     
     let tileTextures = [];
