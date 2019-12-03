@@ -245,8 +245,7 @@ app.loader.load((loader, resources) => {
         
         // Left number has to smaller than right
         var doorXBound = avatar.position.x > 310 && avatar.position.x < 320;
-        
-        //var doorYBound = avatar.position.y < 50 && avatar.position.y > 40;
+        var doorYBound = avatar.position.y < 50  && avatar.position.y > 40;
         
         //Left arrow key `press` method
         left.press = () => 
@@ -298,10 +297,11 @@ app.loader.load((loader, resources) => {
         {
             if ( avatar.position.x < 360 && moveFlag )
             {
-                if ( doorXBound /*&& doorYBound*/ )
+                if ( doorXBound && doorYBound )
                 {
                     avatar.position.x = 0;
                     avatar.position.y = 320;
+                    doorXBound = false;
                 }
                 
                 else
