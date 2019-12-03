@@ -303,7 +303,7 @@ app.loader.load((loader, resources) => {
         var doorXBoundTwo = avatar.position.x > 37 && avatar.position.x < 47;
         
         // Left number has to be bigger than right 
-        //var doorYBoundTwo = avatar.position.y < 360  && avatar.position.y > 340;
+        var doorYBoundTwo = avatar.position.y < 360  && avatar.position.y > 340;
         
         //Left arrow key `press` method
         left.press = () => 
@@ -320,12 +320,12 @@ app.loader.load((loader, resources) => {
                     map2();
                 }
                 
-                else if ( doorXBoundTwo /*&& doorYBoundTwo*/ && !levelOne )
+                else if ( doorXBoundTwo && doorYBoundTwo && !levelOne )
                 {
                     avatar.position.x = 0;
                     avatar.position.y = 45;
                     doorXBoundTwo = false;
-                    //doorYBoundTwo = false;
+                    doorYBoundTwo = false;
                     //avatar.visible = false;
                     //backgroundTwo.visible = false;
                 }
@@ -366,12 +366,12 @@ app.loader.load((loader, resources) => {
                     map2();
                 }
                 
-                else if ( doorXBoundTwo /*&& doorYBoundTwo*/ && !levelOne )
+                else if ( doorXBoundTwo && doorYBoundTwo && !levelOne )
                 {
                     avatar.position.x = 0;
                     avatar.position.y = 45;
                     doorXBoundTwo = false;
-                    //doorYBoundTwo = false;
+                    doorYBoundTwo = false;
                     //avatar.visible = false;
                     //backgroundTwo.visible = false;
                 }
@@ -411,12 +411,12 @@ app.loader.load((loader, resources) => {
                     map2();
                 }
                 
-                else if ( doorXBoundTwo /*&& doorYBoundTwo*/ && !levelOne )
+                else if ( doorXBoundTwo && doorYBoundTwo && !levelOne )
                 {
                     avatar.position.x = 0;
                     avatar.position.y = 45;
                     doorXBoundTwo = false;
-                    //doorYBoundTwo = false;
+                    doorYBoundTwo = false;
                     //avatar.visible = false;
                     //backgroundTwo.visible = false;
                 }
@@ -457,12 +457,12 @@ app.loader.load((loader, resources) => {
                     map2();
                 }
                 
-                else if ( doorXBoundTwo /*&& doorYBoundTwo*/ && !levelOne )
+                else if ( doorXBoundTwo && doorYBoundTwo && !levelOne )
                 {
                     avatar.position.x = 0;
                     avatar.position.y = 45;
                     doorXBoundTwo = false;
-                    //doorYBoundTwo = false;
+                    doorYBoundTwo = false;
                     //avatar.visible = false;
                     //backgroundTwo.visible = false;
                 }
