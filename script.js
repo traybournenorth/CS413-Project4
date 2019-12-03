@@ -100,7 +100,6 @@ document.body.appendChild(app.view);
 
 // load the texture we need
 app.loader.add('tileset', '/assets/tileset.png');
-app.loader.add('character', 'assets/JellyAssets.json');
 app.loader.load((loader, resources) => {
     
     /*PIXI.sound.Sound.from(
@@ -125,11 +124,16 @@ app.loader.load((loader, resources) => {
     startGame.buttonMode = true;
     startGame.on("mousedown", (event) => 
     {
-        moveFlag = true;  
+        moveFlag = true; 
+        title.visible = false;
         startGame.visible = false;
         instructions.visible = false;
         credits.visible = false;
     });
+    
+    let title = new PIXI.Text('The Land Jelly',{fontFamily : 'Arial', fontSize: 24, fill : 0xFFFFFF });
+    title.position.x = 140;
+    title.position.y = 30;
     
     let instructions = new PIXI.Text('Instructions',{fontFamily : 'Arial', fontSize: 24, fill : 0xFFFFFF });
     instructions.position.x = 140;
@@ -142,6 +146,7 @@ app.loader.load((loader, resources) => {
         startGame.visible = false;
         instructions.visible = false;
         credits.visible = false;
+        title.visible = false;
         
         let instructionsText = new PIXI.Text('Use the left, right, up, down arrow keys\nto make your way to each door. Try to\navoid incoming objects / obstacles that\ncould prevent you from winning. Good luck!',{fontFamily : 'Arial', fontSize: 18, fill : 0xFFFFFF });
         instructionsText.position.x = 40;
@@ -157,6 +162,7 @@ app.loader.load((loader, resources) => {
         {
             instructionsText.visible = false;
             backText.visible = false;
+            title.visible = true;
             startGame.visible = true;
             instructions.visible = true;
             credits.visible = true;
@@ -177,6 +183,7 @@ app.loader.load((loader, resources) => {
         startGame.visible = false;
         instructions.visible = false;
         credits.visible = false;
+        title.visible = false;
         
         let creditsText = new PIXI.Text('Game designers: Joseph Danciu, Jevin Dement, \nKeenan Swanson, Traybourne North\n\nEditors: Joseph Danciu, Jevin Dement, Keenan Swanson, \nTraybourne North\n\nProject Manager: Traybourne North\n\nComposer: Traybourne North',{fontFamily : 'Arial', fontSize: 14, fill : 0xFFFFFF });
         creditsText.position.x = 20;
@@ -192,6 +199,7 @@ app.loader.load((loader, resources) => {
         {
             creditsText.visible = false;
             backText.visible = false;
+            title.visible = true;
             startGame.visible = true;
             instructions.visible = true;
             credits.visible = true;
@@ -217,20 +225,13 @@ app.loader.load((loader, resources) => {
         tileTextures[index] = new PIXI.Texture( resources.tileset.texture, new PIXI.Rectangle( x * tileSize, y * tileSize, tileSize, tileSize));
     }
     
-    // Loop that slices size of character into individual cubes
-    /*for ( let index = 0; index < 1; index++ )
-    {
-        characterFrames[index] = new PIXI.Texture( resources.character.texture, new PIXI.Rectangle( index * tileSize, 0, tileSize, tileSize * 2 ) );
-    }*/
-    
-    // Switch tileTextures to characterFrames once we create avatar spritesheet
     const avatar = new PIXI.AnimatedSprite(jellyFrames);
     avatar.animationSpeed = .1;
     avatar.play();
     avatar.scale.x = .9;
     avatar.scale.y = .9;
     
-    avatar.position.x = 0;
+    avatar.position.x = 10;
     avatar.position.y = 320;
     avatar.position.vx = 0;
     avatar.position.vy = 0;
@@ -279,6 +280,7 @@ app.loader.load((loader, resources) => {
     app.stage.addChild( avatar );
     
     // Add menu stage
+    app.stage.addChild( title );
     app.stage.addChild( startGame );
     app.stage.addChild( instructions );
     app.stage.addChild( credits );
@@ -291,10 +293,7 @@ app.loader.load((loader, resources) => {
         background.visible = false;
         backgroundTwo.visible = true;
     }
-    
-    // Sets position of avatar
-    //let character = { x: 0, y: 360, vx: 0, vy: 0 };
-    
+
     // Listen for frame updates
     app.ticker.add(() => {
         
@@ -373,7 +372,7 @@ app.loader.load((loader, resources) => {
             {
                 if ( doorXBound && doorYBound && levelOne )
                 {
-                    avatar.position.x = 0;
+                    avatar.position.x = 10;
                     avatar.position.y = 45;
                     doorXBound = false;
                     doorYBound = false;
@@ -383,8 +382,6 @@ app.loader.load((loader, resources) => {
                 
                 else if ( doorXBoundTwo && doorYBoundTwo && !levelOne )
                 {
-                    avatar.position.x = 0;
-                    avatar.position.y = 45;
                     doorXBoundTwo = false;
                     doorYBoundTwo = false;
                     avatar.visible = false;
@@ -419,7 +416,7 @@ app.loader.load((loader, resources) => {
             {
                 if ( doorXBound && doorYBound && levelOne )
                 {
-                    avatar.position.x = 0;
+                    avatar.position.x = 10;
                     avatar.position.y = 45;
                     doorXBound = false;
                     doorYBound = false;
@@ -429,8 +426,6 @@ app.loader.load((loader, resources) => {
                 
                 else if ( doorXBoundTwo && doorYBoundTwo && !levelOne )
                 {
-                    avatar.position.x = 0;
-                    avatar.position.y = 45;
                     doorXBoundTwo = false;
                     doorYBoundTwo = false;
                     avatar.visible = false;
@@ -466,7 +461,7 @@ app.loader.load((loader, resources) => {
             {
                 if ( doorXBound && doorYBound && levelOne )
                 {
-                    avatar.position.x = 0;
+                    avatar.position.x = 10;
                     avatar.position.y = 45;
                     doorXBound = false;
                     doorYBound = false;
@@ -476,8 +471,6 @@ app.loader.load((loader, resources) => {
                 
                 else if ( doorXBoundTwo && doorYBoundTwo && !levelOne )
                 {
-                    avatar.position.x = 0;
-                    avatar.position.y = 45;
                     doorXBoundTwo = false;
                     doorYBoundTwo = false;
                     avatar.visible = false;
