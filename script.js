@@ -38,15 +38,15 @@ let mapTwo = { width: 10, height: 10,
             12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
             
             // Door with ground underneath
-            12, 12, 35, 12, 12, 12, 12, 12, 12, 12,
-            0, 0, 35, 0, 0, 0, 0, 0, 0, 0,
+            12, 12, 12, 36, 12, 12, 12, 12, 12, 12,
+            0, 0, 0, 36, 0, 0, 0, 0, 0, 0,
                 
-            12, 12, 35, 12, 12, 12, 12, 12, 12, 12,
-            12, 12, 35, 12, 12, 12, 12, 12, 12, 12,
-            12, 12, 35, 12, 41, 12, 12, 36, 12, 12,
-            0, 0, 0, 0, 0, 0, 0, 36, 0, 0,
-            12, 12, 12, 12, 12, 12, 12, 36, 12, 12,
-            12, 50, 12, 12, 12, 12, 12, 36, 12, 12,
+            12, 12, 12, 36, 12, 12, 12, 12, 12, 12,
+            12, 12, 12, 36, 12, 12, 12, 12, 12, 12,
+            12, 12, 12, 36, 12, 35, 12, 35, 12, 12,
+            0, 0, 0, 0, 0, 35, 0, 35, 0, 0,
+            12, 12, 12, 12, 12, 35, 12, 35, 12, 12,
+            12, 50, 12, 12, 12, 35, 12, 35, 12, 12,
                 
             // Bottom Floor
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -290,17 +290,31 @@ app.loader.load((loader, resources) => {
             right = keyboard(39),
             down = keyboard(40);
         
-        // Left number has to smaller than right
+        // Left number has to be smaller than right
         var doorXBound = avatar.position.x > 310 && avatar.position.x < 320;
+        
+        // Left number has to be bigger than right 
         var doorYBound = avatar.position.y < 50  && avatar.position.y > 40;
         
         //Left arrow key `press` method
         left.press = () => 
         {
             if ( avatar.position.x > 10 && moveFlag )
-            {            
-                avatar.position.vx = -2;
-                avatar.position.vy = 0;
+            {
+                if ( doorXBound && doorYBound )
+                {
+                    avatar.position.x = 0;
+                    avatar.position.y = 45;
+                    doorXBound = false;
+                    doorYBound = false;
+                    map2();
+                }
+                
+                else
+                {
+                    avatar.position.vx = -2;
+                    avatar.position.vy = 0;
+                }  
             }
             
             else
@@ -322,8 +336,20 @@ app.loader.load((loader, resources) => {
         {
             if ( avatar.position.y > 10 && moveFlag )
             {
-                avatar.position.vx = 0;
-                avatar.position.vy = -2;
+                if ( doorXBound && doorYBound )
+                {
+                    avatar.position.x = 0;
+                    avatar.position.y = 45;
+                    doorXBound = false;
+                    doorYBound = false;
+                    map2();
+                }
+                
+                else
+                {
+                    avatar.position.vx = 0;
+                    avatar.position.vy = -2;
+                } 
             }
             
             else
@@ -347,7 +373,9 @@ app.loader.load((loader, resources) => {
                 if ( doorXBound && doorYBound )
                 {
                     avatar.position.x = 0;
-                    avatar.position.y = 20;
+                    avatar.position.y = 45;
+                    doorXBound = false;
+                    doorYBound = false;
                     map2();
                 }
                 
@@ -377,8 +405,20 @@ app.loader.load((loader, resources) => {
         {
             if ( avatar.position.y < 320 && moveFlag )
             {
-                avatar.position.vx = 0;
-                avatar.position.vy = 2;
+                if ( doorXBound && doorYBound )
+                {
+                    avatar.position.x = 0;
+                    avatar.position.y = 45;
+                    doorXBound = false;
+                    doorYBound = false;
+                    map2();
+                }
+                
+                else
+                {
+                    avatar.position.vx = 0;
+                    avatar.position.vy = 2;
+                }
             }
             
             else
