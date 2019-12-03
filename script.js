@@ -320,6 +320,16 @@ app.loader.load((loader, resources) => {
                     map2();
                 }
                 
+                else if ( doorXBoundTwo /*&& doorYBoundTwo*/ && !levelOne )
+                {
+                    avatar.position.x = 0;
+                    avatar.position.y = 45;
+                    doorXBoundTwo = false;
+                    //doorYBoundTwo = false;
+                    //avatar.visible = false;
+                    //backgroundTwo.visible = false;
+                }
+                
                 else
                 {
                     avatar.position.vx = -2;
@@ -354,6 +364,16 @@ app.loader.load((loader, resources) => {
                     doorYBound = false;
                     levelOne = false;
                     map2();
+                }
+                
+                else if ( doorXBoundTwo /*&& doorYBoundTwo*/ && !levelOne )
+                {
+                    avatar.position.x = 0;
+                    avatar.position.y = 45;
+                    doorXBoundTwo = false;
+                    //doorYBoundTwo = false;
+                    //avatar.visible = false;
+                    //backgroundTwo.visible = false;
                 }
                 
                 else
@@ -443,8 +463,8 @@ app.loader.load((loader, resources) => {
                     avatar.position.y = 45;
                     doorXBoundTwo = false;
                     //doorYBoundTwo = false;
-                    avatar.visible = false;
-                    backgroundTwo.visible = false;
+                    //avatar.visible = false;
+                    //backgroundTwo.visible = false;
                 }
                 
                 else
