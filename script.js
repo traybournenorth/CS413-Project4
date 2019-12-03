@@ -269,6 +269,9 @@ app.loader.load((loader, resources) => {
     app.stage.addChild( instructions );
     app.stage.addChild( credits );
     
+    var levelOne = true;
+    var levelTwo = false;
+    
     function map2()
     {
         background.visible = false;
@@ -301,12 +304,13 @@ app.loader.load((loader, resources) => {
         {
             if ( avatar.position.x > 10 && moveFlag )
             {
-                if ( doorXBound && doorYBound )
+                if ( doorXBound && doorYBound && levelOne )
                 {
                     avatar.position.x = 0;
                     avatar.position.y = 45;
                     doorXBound = false;
                     doorYBound = false;
+                    levelOne = false;
                     map2();
                 }
                 
@@ -336,12 +340,13 @@ app.loader.load((loader, resources) => {
         {
             if ( avatar.position.y > 10 && moveFlag )
             {
-                if ( doorXBound && doorYBound )
+                if ( doorXBound && doorYBound && levelOne )
                 {
                     avatar.position.x = 0;
                     avatar.position.y = 45;
                     doorXBound = false;
                     doorYBound = false;
+                    levelOne = false;
                     map2();
                 }
                 
@@ -370,12 +375,13 @@ app.loader.load((loader, resources) => {
         {
             if ( avatar.position.x < 360 && moveFlag )
             {
-                if ( doorXBound && doorYBound )
+                if ( doorXBound && doorYBound && levelOne )
                 {
                     avatar.position.x = 0;
                     avatar.position.y = 45;
                     doorXBound = false;
                     doorYBound = false;
+                    levelOne = false;
                     map2();
                 }
                 
@@ -405,12 +411,13 @@ app.loader.load((loader, resources) => {
         {
             if ( avatar.position.y < 320 && moveFlag )
             {
-                if ( doorXBound && doorYBound )
+                if ( doorXBound && doorYBound && levelOne )
                 {
                     avatar.position.x = 0;
                     avatar.position.y = 45;
                     doorXBound = false;
                     doorYBound = false;
+                    levelOne = false;
                     map2();
                 }
                 
