@@ -111,12 +111,12 @@ document.body.appendChild(app.view);
 app.loader.add('tileset', '/assets/tileset.png');
 app.loader.load((loader, resources) => {
     
-    /*PIXI.sound.Sound.from(
+    PIXI.sound.Sound.from(
     {
         url: 'assets/menu.mp3',
         autoPlay: true,
-        volume: 0.4
-    });*/
+        volume: 0.5
+    });
     
     let tileTextures = [];
     let jellyFrames = [jelly1,jelly2,jelly3];
