@@ -107,7 +107,7 @@ app.loader.load((loader, resources) => {
     });*/
     
     let tileTextures = [];
-    //let characterFrames = [];
+    // let characterFrames = [];
     
     ////// Menu 
     
