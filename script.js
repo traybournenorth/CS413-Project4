@@ -31,6 +31,27 @@ let map = { width: 10, height: 10,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0
             ]};
 
+// Creates world map
+let mapTwo = { width: 10, height: 10, 
+            tiles: [ 
+            // Dark top
+            12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+            
+            // Door with ground underneath
+            12, 12, 35, 12, 12, 12, 12, 12, 12, 12,
+            0, 0, 35, 0, 0, 0, 0, 0, 0, 0,
+                
+            12, 12, 35, 12, 12, 12, 12, 12, 12, 12,
+            12, 12, 35, 12, 12, 12, 12, 12, 12, 12,
+            12, 12, 35, 12, 41, 12, 12, 36, 12, 12,
+            0, 0, 0, 0, 0, 0, 0, 36, 0, 0,
+            12, 12, 12, 12, 12, 12, 12, 36, 12, 12,
+            12, 50, 12, 12, 12, 12, 12, 36, 12, 12,
+                
+            // Bottom Floor
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            ]};
+
 //The `keyboard` helper function
 function keyboard(keyCode) 
 {
@@ -216,9 +237,29 @@ app.loader.load((loader, resources) => {
     
     background.scale.x = SCALE;
     background.scale.y = SCALE;
+    
+    let backgroundTwo = new PIXI.Container();
+    
+    for ( y = 0; y < mapTwo.width; y++ )
+    {
+        for ( let x = 0; x < mapTwo.width; x++ )
+        {
+            let tile = mapTwo.tiles[ y * mapTwo.width + x ];
+            let sprite = new PIXI.Sprite( tileTextures[ tile ] );
+            sprite.x = x * tileSize;
+            sprite.y = y * tileSize;
+            backgroundTwo.addChild( sprite );
+        }
+    }
+    
+    backgroundTwo.scale.x = SCALE;
+    backgroundTwo.scale.y = SCALE;
 
     // Add background to the scene we are building
     app.stage.addChild( background );
+    
+    app.stage.addChild( backgroundTwo );
+    backgroundTwo.visible = false;
     
     // Add avatar
     app.stage.addChild( avatar );
@@ -231,6 +272,7 @@ app.loader.load((loader, resources) => {
     function map2()
     {
         background.visible = false;
+        backgroundTwo.visible = true;
     }
     
     // Sets position of avatar
