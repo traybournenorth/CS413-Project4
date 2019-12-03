@@ -1,3 +1,12 @@
+/*  Project 4: The Land Jelly
+
+    Project authors: Jevin Dement ( jdk277@nau.edu ), Joseph Danciu ( jd2279@nau.edu ), Keenan Swanson ( kks279@nau.edu ), 
+                     Traybourne North ( tpn26@nau.edu )
+
+	Keyboard movement cite: 
+	https://github.com/kittykatattack/learningPixi/blob/master/examples/12_keyboardMovement.html
+*/
+    
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
 const app = new PIXI.Application({
