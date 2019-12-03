@@ -243,11 +243,14 @@ app.loader.load((loader, resources) => {
             right = keyboard(39),
             down = keyboard(40);
         
+        //var doorXBound = avatar.position.x > 340 && avatar.position.x < 347;
+        //var doorYBound = avatar.position.y < 50 && avatar.position.y > 40;
+        
         //Left arrow key `press` method
         left.press = () => 
         {
             if ( avatar.position.x > 10 && moveFlag )
-            {
+            {            
                 avatar.position.vx = -2;
                 avatar.position.vy = 0;
             }
@@ -293,9 +296,18 @@ app.loader.load((loader, resources) => {
         {
             if ( avatar.position.x < 360 && moveFlag )
             {
-                avatar.position.vx = 2;
-                avatar.position.vy = 0; 
-            } 
+                /*if ( doorXBound && doorYBound )
+                {
+                    avatar.position.x = 0;
+                    avatar.position.y = 320;
+                /*/
+                
+                //else
+                //{
+                    avatar.position.vx = 2;
+                    avatar.position.vy = 0;   
+                //}  
+            }
             
             else
             {
