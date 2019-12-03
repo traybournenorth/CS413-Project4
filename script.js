@@ -299,6 +299,12 @@ app.loader.load((loader, resources) => {
         // Left number has to be bigger than right 
         var doorYBound = avatar.position.y < 50  && avatar.position.y > 40;
         
+        // Left number has to be smaller than right
+        var doorXBoundTwo = avatar.position.x > 310 && avatar.position.x < 320;
+        
+        // Left number has to be bigger than right 
+        var doorYBoundTwo = avatar.position.y < 50  && avatar.position.y > 40;
+        
         //Left arrow key `press` method
         left.press = () => 
         {
