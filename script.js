@@ -52,6 +52,10 @@ let mapTwo = { width: 10, height: 10,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0
             ]};
 
+var jelly1 = PIXI.Texture.fromFrame("assets/JellyFish1.png");
+var jelly2 = PIXI.Texture.fromFrame("assets/JellyFish2.png");
+var jelly3 = PIXI.Texture.fromFrame("assets/JellyFish3.png");
+
 //The `keyboard` helper function
 function keyboard(keyCode) 
 {
@@ -96,7 +100,7 @@ document.body.appendChild(app.view);
 
 // load the texture we need
 app.loader.add('tileset', '/assets/tileset.png');
-app.loader.add('character', '/assets/tileset.png');
+app.loader.add('character', '/assets/JellyAssets.json');
 app.loader.load((loader, resources) => {
     
     /*PIXI.sound.Sound.from(
@@ -107,7 +111,7 @@ app.loader.load((loader, resources) => {
     });*/
     
     let tileTextures = [];
-    // let characterFrames = [];
+    let characterFrames = [];
     
     ////// Menu 
     
