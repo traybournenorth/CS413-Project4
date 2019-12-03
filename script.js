@@ -304,6 +304,8 @@ app.loader.load((loader, resources) => {
             {
                 if ( doorXBound && doorYBound )
                 {
+                    avatar.position.x = 0;
+                    avatar.position.y = 20;
                     map2();
                 }
                 
