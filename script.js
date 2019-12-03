@@ -228,6 +228,11 @@ app.loader.load((loader, resources) => {
     app.stage.addChild( instructions );
     app.stage.addChild( credits );
     
+    function map2()
+    {
+        background.visible = false;
+    }
+    
     // Sets position of avatar
     //let character = { x: 0, y: 360, vx: 0, vy: 0 };
     
@@ -299,9 +304,7 @@ app.loader.load((loader, resources) => {
             {
                 if ( doorXBound && doorYBound )
                 {
-                    avatar.position.x = 0;
-                    avatar.position.y = 320;
-                    doorXBound = false;
+                    map2();
                 }
                 
                 else
