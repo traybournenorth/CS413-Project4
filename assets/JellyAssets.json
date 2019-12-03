@@ -1,0 +1,36 @@
+{"frames": {
+
+"JellyFish1.png":
+{
+	"frame": {"x":1,"y":60,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"JellyFish2.png":
+{
+	"frame": {"x":1,"y":27,"w":32,"h":31},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":32,"h":31},
+	"sourceSize": {"w":32,"h":32}
+},
+"JellyFish3.png":
+{
+	"frame": {"x":1,"y":1,"w":32,"h":24},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":32,"h":24},
+	"sourceSize": {"w":32,"h":32}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "JellyAssets.png",
+	"format": "RGBA8888",
+	"size": {"w":34,"h":93},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:3d0567e29488048f8084293f6ffa79d4:8a5128217f6ba6ca9f718becaa9c9dd4:648d065884be73a5345e7232e9bd01e1$"
+}
+}
