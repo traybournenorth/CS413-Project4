@@ -100,7 +100,7 @@ document.body.appendChild(app.view);
 
 // load the texture we need
 app.loader.add('tileset', '/assets/tileset.png');
-app.loader.add('character', '/assets/JellyAssets.json');
+app.loader.add('character', 'assets/JellyAssets.json');
 app.loader.load((loader, resources) => {
     
     /*PIXI.sound.Sound.from(
@@ -111,7 +111,7 @@ app.loader.load((loader, resources) => {
     });*/
     
     let tileTextures = [];
-    let characterFrames = [];
+    let jellyFrames = [jelly1,jelly2,jelly3];
     
     ////// Menu 
     
@@ -224,9 +224,11 @@ app.loader.load((loader, resources) => {
     }*/
     
     // Switch tileTextures to characterFrames once we create avatar spritesheet
-    const avatar = new PIXI.Sprite( tileTextures[61]);
-    avatar.scale.x = SCALE;
-    avatar.scale.y = SCALE;
+    const avatar = new PIXI.AnimatedSprite(jellyFrames);
+    avatar.animationSpeed = .1;
+    avatar.play();
+    avatar.scale.x = .9;
+    avatar.scale.y = .9;
     
     avatar.position.x = 0;
     avatar.position.y = 320;
